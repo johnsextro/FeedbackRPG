@@ -27,6 +27,10 @@ const ApplicationStyles = {
       margin: Metrics.section,
       padding: Metrics.baseMargin
     },
+    instruction: {
+      margin: Metrics.smallMargin,
+      padding: Metrics.baseMargin
+    },
     sectionText: {
       ...Fonts.style.normal,
       paddingVertical: Metrics.doubleBaseMargin,
