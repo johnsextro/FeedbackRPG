@@ -6,9 +6,9 @@ import RoundedButton from '../Components/RoundedButton'
 // import YourActions from '../Redux/YourRedux'
 import { Images } from '../Themes'
 // Styles
-import styles from './Styles/InstructionsStyle'
+import styles from './Styles/PlayMainStyle'
 
-class Instructions extends Component {
+class PlayMain extends Component {
   // constructor (props) {
   //   super(props)
   //   this.state = {}
@@ -22,31 +22,17 @@ class Instructions extends Component {
         <ScrollView style={styles.container}>
           <View style={styles.welcome} >
             <Text style={styles.sectionText}>
-              Instructions
+              Choose Your Role
             </Text>
           </View>
-          <View style={styles.instruction} >
-            <Text style={styles.titleText}>
-              How to play
-            </Text>
-          </View>
-          <View style={styles.instruction} >
-            <Text style={styles.titleText}>
-              Your facilitator will help walk you through the game play. Here are the basics:
-            </Text>
-          </View>
-          <View style={styles.instruction} >
-            <Text style={styles.titleText}>
-              Group Up - Break up into groups of 2, 3, or 4 people.
-            </Text>
-          </View>
-          <View style={styles.instruction} >
-            <Text style={styles.titleText}>
-              Before each round choose 
-            </Text>
+          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
             <RoundedButton
-              onPress={() => navigate('PlayMain')}
-              text='Start'
+                onPress={() => navigate('ProviderScreen')}
+                text='Provider of Feedback'
+              />
+            <RoundedButton
+              onPress={() => navigate('ResponderScreen')}
+              text='Responder to Feedback'
             />
           </View>
         </ScrollView>
@@ -65,4 +51,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Instructions)
+export default connect(mapStateToProps, mapDispatchToProps)(PlayMain)
