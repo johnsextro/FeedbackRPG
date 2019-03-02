@@ -27,7 +27,7 @@ export default class LaunchScreen extends Component {
 
         </ScrollView>
         <Button
-          onPress={() => navigate('InstructionsScreen')}
+          onPress={() => navigate('Instructions')}
           title="Instructions"
           color="#841584"
           accessibilityLabel="How To Play"

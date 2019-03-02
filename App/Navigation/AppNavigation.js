@@ -1,13 +1,13 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import Instructions from '../Containers/Instructions'
 import LaunchScreen from '../Containers/LaunchScreen'
-import InstructionsScreen from '../Containers/InstructionsScreen'
 
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
-  LaunchScreen: { screen: LaunchScreen },
-  InstructionsScreen: { screen: InstructionsScreen}
+  Instructions: { screen: Instructions },
+  LaunchScreen: { screen: LaunchScreen }
 }, {
   // Default config for all screens
   headerMode: 'none',
