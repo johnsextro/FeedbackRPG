@@ -1,4 +1,5 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
+import ResponderScreen from '../Containers/ResponderScreen'
 import PlayMain from '../Containers/PlayMain'
 import Instructions from '../Containers/Instructions'
 import LaunchScreen from '../Containers/LaunchScreen'
@@ -7,6 +8,7 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator({
+  ResponderScreen: { screen: ResponderScreen },
   PlayMain: { screen: PlayMain },
   Instructions: { screen: Instructions },
   LaunchScreen: { screen: LaunchScreen }

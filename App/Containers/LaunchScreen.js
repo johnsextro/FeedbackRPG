@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text, Image, View } from 'react-native'
 import { Button } from 'react-native';
 import { Images } from '../Themes'
+import RoundedButton from '../Components/RoundedButton'
 
 // Styles
 import styles from './Styles/LaunchScreenStyles'
@@ -24,15 +25,11 @@ export default class LaunchScreen extends Component {
               You have arrived.
             </Text>
           </View>
-
+          <RoundedButton
+              onPress={() => navigate('Instructions')}
+              text="Let's Play"
+            />
         </ScrollView>
-        <Button
-          onPress={() => navigate('Instructions')}
-          title="Instructions"
-          color="#841584"
-          accessibilityLabel="How To Play"
-        />
-        <View style={{height: 50}}></View>
       </View>
     )
   }
