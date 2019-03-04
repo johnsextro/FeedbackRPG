@@ -22,34 +22,46 @@ class Instructions extends Component {
         <ScrollView style={styles.container}>
           <View style={styles.welcome} >
             <Text style={styles.sectionText}>
-              Instructions
+              How To Play
             </Text>
           </View>
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
-              How to play
+              Split Up Into Groups
+            </Text>
+            <Text style={styles.titleText}>
+              All of your groups should be the same size. Limit the size of each group to 2, 3, or 4 people.
             </Text>
           </View>
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
-              Your facilitator will help walk you through the game play. Here are the basics:
+              Before Each Round
+            </Text>
+            <Text style={styles.titleText}>
+              Choose a person in your group to be the "Provider of the Feedback". Next, choose a person in your group to be the "Responder to the Feedback". The others in your group will be the "Observers". After each round the roles will rotate so that everyone has a chance to perform all of the roles.
             </Text>
           </View>
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
-              Group Up - Break up into groups of 2, 3, or 4 people.
+              Playing a Round
+            </Text>
+            <Text style={styles.titleText}>
+              Rounds are timed and consist of 2 parts, separated by a "simulated break".
             </Text>
           </View>
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
-              Before each round choose 
+              After Each Round
             </Text>
+            <Text style={styles.titleText}>
+              Spend a couple of minutes debriefing with your group. What went well? What could have gone better? What surprised you?
+            </Text>
+          </View>
             <RoundedButton
               onPress={() => navigate('PlayMain')}
               text='Start'
             />
-          </View>
-        </ScrollView>
+          </ScrollView>
       </View>
     )
   }
