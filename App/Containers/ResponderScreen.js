@@ -12,7 +12,7 @@ class ResponderScreen extends Component {
   constructor (props) {
     super(props)
     this.randomizePersona = this.randomizePersona.bind(this)
-    this.state = { persona: ''};
+    this.state = { responder: {persona: [{role: '', motivation: ''}], isRandomized: false }};
   }
 
   randomizePersona() {
@@ -35,11 +35,14 @@ class ResponderScreen extends Component {
       personas[i] = personas[j];
       personas[j] = temp;
     }
-    this.setState({ persona: personas[0] });
+    this.setState({ responder: {persona: personas[0] , isRandomized: true}});
+    
   }
 
   render () {
     const {navigate} = this.props.navigation;
+    const randomizeButton = this.state.responder.isRandomized ? null : <RoundedButton onPress={this.randomizePersona} text='Randomize My Persona' />;
+    const startOverButton = this.state.responder.isRandomized ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
@@ -49,18 +52,16 @@ class ResponderScreen extends Component {
               Playing as the Responder
             </Text>
           </View>
-          <RoundedButton
-              onPress={this.randomizePersona}
-              text='Randomize My Persona'
-            />
+          {randomizeButton}
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
-              { this.state.persona.role }
+              { this.state.responder.persona.role }
             </Text>
             <Text style={styles.titleText}>
-              { this.state.persona.motivation }
+              { this.state.responder.persona.motivation }
             </Text>
           </View>
+          {startOverButton}
         </ScrollView>
       </View>
     )
