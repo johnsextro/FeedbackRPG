@@ -27,7 +27,7 @@ class ProviderScreen extends Component {
     const startTimerButton = this.state.provider.state == 'phase2' ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
     const playAgain = this.state.provider.state == 'phase5' ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
     const timer = this.state.provider.state == 'phase3' || this.state.provider.state == 'phase4' ? <TimerCountdown
-    initialMilliseconds={50 * 60}
+    initialMilliseconds={2500 * 60}
     onTick={(milliseconds) => console.log("tick", milliseconds)}
     onExpire={this.handleTimerExpiration}
     formatMilliseconds={(milliseconds) => {
