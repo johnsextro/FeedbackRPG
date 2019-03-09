@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, Image } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
+import TimerCountdown from "react-native-timer-countdown";
+
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import { Images } from '../Themes'
@@ -12,13 +14,33 @@ class ProviderScreen extends Component {
   constructor (props) {
     super(props)
     this.randomizeTopic = this.randomizeTopic.bind(this)
-    this.state = { provider: {feedback: '', isRandomized: false }};
+    this.startTimer = this.startTimer.bind(this)
+    this.state = { provider: {feedback: '', isRandomized: false, runTimer: false}};
   }
 
   render () {
     const {navigate} = this.props.navigation;
     const randomizeButton = this.state.provider.isRandomized ? null : <RoundedButton onPress={this.randomizeTopic} text='Randomize Feedback Topic' />;
-    const startOverButton = this.state.provider.isRandomized ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
+    const startTimerButton = this.state.provider.isRandomized ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
+    const timer = this.state.provider.runTimer ? <TimerCountdown
+    initialMilliseconds={2500 * 60}
+    onTick={(milliseconds) => console.log("tick", milliseconds)}
+    onExpire={() => console.log("complete")}
+    formatMilliseconds={(milliseconds) => {
+      const remainingSec = Math.round(milliseconds / 1000);
+      const seconds = parseInt((remainingSec % 60).toString(), 10);
+      const minutes = parseInt(((remainingSec / 60) % 60).toString(), 10);
+      const hours = parseInt((remainingSec / 3600).toString(), 10);
+      const s = seconds < 10 ? '0' + seconds : seconds;
+      const m = minutes < 10 ? '0' + minutes : minutes;
+      let h = hours < 10 ? '0' + hours : hours;
+      h = h === '00' ? '' : h + ':';
+      return h + m + ':' + s;
+    }}
+    allowFontScaling={true}
+    style={{ fontSize: 20 }}
+  /> : null;
+
     // const timeButtons = this.state.provider.isRandomized ? <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}><RoundedButton onPress={() => navigate('PlayMain')} text='5 mins' /><RoundedButton onPress={() => navigate('PlayMain')} text='6 mins' /><RoundedButton onPress={() => navigate('PlayMain')} text='7 mins' /></View> : null;
     return (
       <View style={styles.mainContainer}>
@@ -35,10 +57,8 @@ class ProviderScreen extends Component {
               { this.state.provider.feedback }
             </Text>
           </View>
-          {startOverButton}
-          
-          {timeButtons}
-          
+          {startTimerButton}
+          {timer}
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
               Feedback Workflow
@@ -83,6 +103,10 @@ class ProviderScreen extends Component {
       feedbacks[j] = temp;
     }
     this.setState({ provider: {feedback: feedbacks[0] , isRandomized: true}});
+  }
+
+  startTimer() {
+    this.setState({ provider: {feedback: this.state.provider.feedback, isRandomized: this.state.provider.isRandomized, runTimer: true}});
   }
 }
 
