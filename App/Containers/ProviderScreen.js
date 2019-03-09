@@ -21,7 +21,7 @@ class ProviderScreen extends Component {
   render () {
     const {navigate} = this.props.navigation;
     const randomizeButton = this.state.provider.isRandomized ? null : <RoundedButton onPress={this.randomizeTopic} text='Randomize Feedback Topic' />;
-    const startTimerButton = this.state.provider.isRandomized ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
+    const startTimerButton = this.state.provider.isRandomized && !this.state.provider.runTimer ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
     const timer = this.state.provider.runTimer ? <TimerCountdown
     initialMilliseconds={2500 * 60}
     onTick={(milliseconds) => console.log("tick", milliseconds)}
@@ -38,7 +38,7 @@ class ProviderScreen extends Component {
       return h + m + ':' + s;
     }}
     allowFontScaling={true}
-    style={{ fontSize: 20 }}
+    style={{ fontSize: 60, color: 'white', textAlign: 'center' }}
   /> : null;
 
     // const timeButtons = this.state.provider.isRandomized ? <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}><RoundedButton onPress={() => navigate('PlayMain')} text='5 mins' /><RoundedButton onPress={() => navigate('PlayMain')} text='6 mins' /><RoundedButton onPress={() => navigate('PlayMain')} text='7 mins' /></View> : null;
