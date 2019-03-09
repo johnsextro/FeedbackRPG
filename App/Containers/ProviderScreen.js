@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, Image } from 'react-native'
+import { ScrollView, Text, View, Image, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 import TimerCountdown from "react-native-timer-countdown";
@@ -15,17 +15,21 @@ class ProviderScreen extends Component {
     super(props)
     this.randomizeTopic = this.randomizeTopic.bind(this)
     this.startTimer = this.startTimer.bind(this)
-    this.state = { provider: {feedback: '', isRandomized: false, runTimer: false}};
+    this.continueTimer = this.continueTimer.bind(this)
+    this.finishRound = this.finishRound.bind(this)
+    this.handleTimerExpiration = this.handleTimerExpiration.bind(this)
+    this.state = { provider: {feedback: '', state: 'phase1'}};
   }
 
   render () {
     const {navigate} = this.props.navigation;
-    const randomizeButton = this.state.provider.isRandomized ? null : <RoundedButton onPress={this.randomizeTopic} text='Randomize Feedback Topic' />;
-    const startTimerButton = this.state.provider.isRandomized && !this.state.provider.runTimer ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
-    const timer = this.state.provider.runTimer ? <TimerCountdown
-    initialMilliseconds={2500 * 60}
+    const randomizeButton = this.state.provider.state == 'phase1' ? <RoundedButton onPress={this.randomizeTopic} text='Randomize Feedback Topic' /> : null;
+    const startTimerButton = this.state.provider.state == 'phase2' ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
+    const playAgain = this.state.provider.state == 'phase5' ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
+    const timer = this.state.provider.state == 'phase3' || this.state.provider.state == 'phase4' ? <TimerCountdown
+    initialMilliseconds={50 * 60}
     onTick={(milliseconds) => console.log("tick", milliseconds)}
-    onExpire={() => console.log("complete")}
+    onExpire={this.handleTimerExpiration}
     formatMilliseconds={(milliseconds) => {
       const remainingSec = Math.round(milliseconds / 1000);
       const seconds = parseInt((remainingSec % 60).toString(), 10);
@@ -41,7 +45,6 @@ class ProviderScreen extends Component {
     style={{ fontSize: 60, color: 'white', textAlign: 'center' }}
   /> : null;
 
-    // const timeButtons = this.state.provider.isRandomized ? <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}><RoundedButton onPress={() => navigate('PlayMain')} text='5 mins' /><RoundedButton onPress={() => navigate('PlayMain')} text='6 mins' /><RoundedButton onPress={() => navigate('PlayMain')} text='7 mins' /></View> : null;
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
@@ -59,6 +62,7 @@ class ProviderScreen extends Component {
           </View>
           {startTimerButton}
           {timer}
+          {playAgain}
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
               Feedback Workflow
@@ -102,11 +106,35 @@ class ProviderScreen extends Component {
       feedbacks[i] = feedbacks[j];
       feedbacks[j] = temp;
     }
-    this.setState({ provider: {feedback: feedbacks[0] , isRandomized: true}});
+    this.setState({ provider: {feedback: feedbacks[0] , state: 'phase2'}});
   }
 
   startTimer() {
-    this.setState({ provider: {feedback: this.state.provider.feedback, isRandomized: this.state.provider.isRandomized, runTimer: true}});
+    this.setState({ provider: {feedback: this.state.provider.feedback, state: 'phase3'}});
+  }
+
+  continueTimer() {
+    this.setState({ provider: {feedback: this.state.provider.feedback, state: 'phase4'}});
+  }
+
+  finishRound() {
+    this.setState({ provider: {feedback: this.state.provider.feedback, state: 'phase5'}});
+  }
+
+  handleTimerExpiration() {
+    if (this.state.provider.state == 'phase4') {
+      Alert.alert(
+        'Times Up',
+        'End your round. Then spend a few minutes debriefing with your group.', [{text: 'OK', onPress: this.finishRound}],
+        {cancelable: false},
+      );
+    } else {
+      Alert.alert(
+        'Break Time',
+        'Simulate Taking a Break', [{text: 'OK', onPress: this.continueTimer}],
+        {cancelable: false},
+      );
+    }
   }
 }
 
