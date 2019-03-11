@@ -12,13 +12,15 @@ class ResponderScreen extends Component {
   constructor (props) {
     super(props)
     this.randomizePersona = this.randomizePersona.bind(this)
-    this.state = { responder: {persona: [{role: '', motivation: ''}], isRandomized: false }};
+    this.takeBreak = this.takeBreak.bind(this)
+    this.state = { responder: {persona: [{role: '', motivation: ''}], state: 'phase1', afterBreakMotivation: '' }};
   }
 
   render () {
     const {navigate} = this.props.navigation;
-    const randomizeButton = this.state.responder.isRandomized ? null : <RoundedButton onPress={this.randomizePersona} text='Randomize My Persona' />;
-    const startOverButton = this.state.responder.isRandomized ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
+    const randomizeButton = this.state.responder.state == 'phase1' ? <RoundedButton onPress={this.randomizePersona} text='Randomize My Persona' /> : null;
+    const startOverButton = this.state.responder.state == 'phase3' ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
+    const takeBreakButton = this.state.responder.state == 'phase2' ? <RoundedButton onPress={this.takeBreak} text='Take a Break' /> : null;
     return (
       <View style={styles.mainContainer}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
@@ -35,6 +37,12 @@ class ResponderScreen extends Component {
             </Text>
             <Text style={styles.titleText}>
               { this.state.responder.persona.motivation }
+            </Text>
+          </View>
+          {takeBreakButton}
+          <View style={styles.instruction} >
+            <Text style={styles.titleText}>
+              { this.state.responder.afterBreakMotivation }
             </Text>
           </View>
           {startOverButton}
@@ -63,7 +71,21 @@ class ResponderScreen extends Component {
       personas[i] = personas[j];
       personas[j] = temp;
     }
-    this.setState({ responder: {persona: personas[0] , isRandomized: true}});
+    this.setState({ responder: {persona: personas[0] , state: 'phase2'}});
+  }
+
+  takeBreak() {
+    var afterBreakMotivations = ['the same as you did before the break. Your motivation has not changed.', 
+                                'more willing to listen to reason, but your feedback provider has to convince you.', 
+                                'like you had a real change of heart and are ready to hear the feedback and committed to making a change.'];
+    for (var i = afterBreakMotivations.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = afterBreakMotivations[i];
+      afterBreakMotivations[i] = afterBreakMotivations[j];
+      afterBreakMotivations[j] = temp;
+    }
+    var motivationText = 'After taking a break you feel ' + afterBreakMotivations[0];
+    this.setState({ responder: {persona: {role: this.state.responder.persona.role , motivation: this.state.responder.persona.motivation } , state: 'phase3', afterBreakMotivation: motivationText}});
   }
 
 }
