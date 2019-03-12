@@ -16,7 +16,7 @@ const PrimaryNav = createStackNavigator({
   LaunchScreen: { screen: LaunchScreen }
 }, {
   // Default config for all screens
-  headerMode: 'none',
+  headerMode: 'float',
   initialRouteName: 'Instructions',
   navigationOptions: {
     headerStyle: styles.header
