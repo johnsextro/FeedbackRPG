@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, Image, Alert } from 'react-native'
+import { ScrollView, Text, View, Image, Alert, Button } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 import TimerCountdown from "react-native-timer-countdown";
@@ -20,6 +20,10 @@ class ProviderScreen extends Component {
     this.handleTimerExpiration = this.handleTimerExpiration.bind(this)
     this.state = { provider: {feedback: '', state: 'phase1'}};
   }
+
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    headerRight: <Button title="Home" onPress={() => { navigation.navigate('Instructions') }} />,
+  });
 
   render () {
     const {navigate} = this.props.navigation;

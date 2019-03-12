@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, Image } from 'react-native'
+import { ScrollView, Text, View, Image, Button } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -15,6 +15,10 @@ class ResponderScreen extends Component {
     this.takeBreak = this.takeBreak.bind(this)
     this.state = { responder: {persona: [{role: '', motivation: ''}], state: 'phase1', afterBreakMotivation: '' }};
   }
+  
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    headerRight: <Button title="Home" onPress={() => { navigation.navigate('Instructions') }} />,
+  });
 
   render () {
     const {navigate} = this.props.navigation;
