@@ -19,7 +19,7 @@ const PrimaryNav = createStackNavigator({
   headerMode: 'float',
   initialRouteName: 'Instructions',
   navigationOptions: {
-    headerStyle: styles.header
+    headerStyle: {backgroundColor: '#3b5998'}
   }
 })
 

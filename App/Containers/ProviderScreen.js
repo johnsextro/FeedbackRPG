@@ -22,6 +22,7 @@ class ProviderScreen extends Component {
   }
 
   static navigationOptions = ({ navigation, screenProps }) => ({
+    headerStyle: {backgroundColor: '#4f354d'},
     headerRight: <Button title="Home" onPress={() => { navigation.navigate('Instructions') }} />,
   });
 

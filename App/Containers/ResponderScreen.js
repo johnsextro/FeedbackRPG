@@ -15,8 +15,9 @@ class ResponderScreen extends Component {
     this.takeBreak = this.takeBreak.bind(this)
     this.state = { responder: {persona: [{role: '', motivation: ''}], state: 'phase1', afterBreakMotivation: '' }};
   }
-  
+
   static navigationOptions = ({ navigation, screenProps }) => ({
+    headerStyle: {backgroundColor: '#4f354d'},
     headerRight: <Button title="Home" onPress={() => { navigation.navigate('Instructions') }} />,
   });
 

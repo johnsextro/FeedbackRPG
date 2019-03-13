@@ -14,6 +14,10 @@ class Instructions extends Component {
   //   this.state = {}
   // }
 
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    headerStyle: {backgroundColor: '#4f354d'}
+  });
+
   render () {
     const {navigate} = this.props.navigation;
     return (
