@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, Image, Alert, Button } from 'react-native'
 import { connect } from 'react-redux'
 import RoundedButton from '../Components/RoundedButton'
-import TimerCountdown from "react-native-timer-countdown";
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -28,27 +27,7 @@ class ProviderScreen extends Component {
 
   render () {
     const {navigate} = this.props.navigation;
-    const randomizeButton = this.state.provider.state == 'phase1' ? <RoundedButton onPress={this.randomizeTopic} text='Randomize Feedback Topic' /> : null;
-    const startTimerButton = this.state.provider.state == 'phase2' ? <RoundedButton onPress={this.startTimer} text='Start Timer' /> : null;
-    const playAgain = this.state.provider.state == 'phase5' ? <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' /> : null;
-    const timer = this.state.provider.state == 'phase3' || this.state.provider.state == 'phase4' ? <TimerCountdown
-    initialMilliseconds={2500 * 60}
-    onTick={(milliseconds) => console.log("tick", milliseconds)}
-    onExpire={this.handleTimerExpiration}
-    formatMilliseconds={(milliseconds) => {
-      const remainingSec = Math.round(milliseconds / 1000);
-      const seconds = parseInt((remainingSec % 60).toString(), 10);
-      const minutes = parseInt(((remainingSec / 60) % 60).toString(), 10);
-      const hours = parseInt((remainingSec / 3600).toString(), 10);
-      const s = seconds < 10 ? '0' + seconds : seconds;
-      const m = minutes < 10 ? '0' + minutes : minutes;
-      let h = hours < 10 ? '0' + hours : hours;
-      h = h === '00' ? '' : h + ':';
-      return h + m + ':' + s;
-    }}
-    allowFontScaling={true}
-    style={{ fontSize: 60, color: 'white', textAlign: 'center' }}
-  /> : null;
+    const playAgain = <RoundedButton onPress={() => navigate('PlayMain')} text='Play Again' />;
 
     return (
       <View style={styles.mainContainer}>
@@ -56,18 +35,24 @@ class ProviderScreen extends Component {
         <ScrollView style={styles.container}>
           <View style={styles.welcome} >
             <Text style={styles.sectionText}>
-              Playing as the Provider
+              Playing as the Observer
             </Text>
           </View>
-          {randomizeButton}
+          {playAgain}
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
-              { this.state.provider.feedback }
+              While you're observing…
+            </Text>
+            <Text style={styles.titleText}>
+              * Imagine what you would say and do if you were providing the feedback. 
+            </Text>
+            <Text style={styles.titleText}>
+              * What could the 'Provider' do differently to handle the Persona they're facing?
+            </Text>
+            <Text style={styles.titleText}>
+              * Did the 'Provider' make effective use of the feedback workflow?
             </Text>
           </View>
-          {startTimerButton}
-          {timer}
-          {playAgain}
           <View style={styles.instruction} >
             <Text style={styles.titleText}>
               Feedback Workflow

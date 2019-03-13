@@ -5,7 +5,7 @@ import { Images } from '../Themes'
 import RoundedButton from '../Components/RoundedButton'
 
 // Styles
-import styles from './Styles/LaunchScreenStyles'
+import styles from './Styles/FeedbackStyle'
 
 export default class LaunchScreen extends Component {
   render () {

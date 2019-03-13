@@ -6,7 +6,7 @@ import RoundedButton from '../Components/RoundedButton'
 // import YourActions from '../Redux/YourRedux'
 import { Images } from '../Themes'
 // Styles
-import styles from './Styles/InstructionsStyle'
+import styles from './Styles/FeedbackStyle'
 
 class Instructions extends Component {
   // constructor (props) {

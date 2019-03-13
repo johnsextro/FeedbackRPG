@@ -6,7 +6,7 @@ import RoundedButton from '../Components/RoundedButton'
 // import YourActions from '../Redux/YourRedux'
 import { Images } from '../Themes'
 // Styles
-import styles from './Styles/PlayMainStyle'
+import styles from './Styles/FeedbackStyle'
 
 class PlayMain extends Component {
   // constructor (props) {
@@ -37,6 +37,10 @@ class PlayMain extends Component {
             <RoundedButton
               onPress={() => navigate('ResponderScreen')}
               text='Responder to Feedback'
+            />
+            <RoundedButton
+              onPress={() => navigate('ObserverScreen')}
+              text='Observer'
             />
           </View>
         </ScrollView>
