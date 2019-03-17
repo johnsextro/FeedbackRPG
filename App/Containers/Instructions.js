@@ -9,10 +9,10 @@ import { Images } from '../Themes'
 import styles from './Styles/FeedbackStyle'
 
 class Instructions extends Component {
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props);
+    this.state = {}
+  }
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerStyle: {backgroundColor: '#4f354d'}
@@ -24,6 +24,10 @@ class Instructions extends Component {
       <View style={styles.mainContainer}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode='stretch' />
         <ScrollView style={styles.container}>
+          <RoundedButton
+            onPress={() => navigate('PlayMain')}
+            text='Start'
+          />
           <View style={styles.welcome} >
             <Text style={styles.sectionText}>
               How To Play
@@ -61,11 +65,7 @@ class Instructions extends Component {
               Spend a couple of minutes debriefing with your group. What went well? What could have gone better? What surprised you?
             </Text>
           </View>
-            <RoundedButton
-              onPress={() => navigate('PlayMain')}
-              text='Start'
-            />
-          </ScrollView>
+        </ScrollView>
       </View>
     )
   }
